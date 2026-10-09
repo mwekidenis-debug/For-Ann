@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta property="og:title" content="For Ann"><meta property="og:description" content="Something small, from Denis."><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ann & Denis: the date jar</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Fraunces',Georgia,'Liberation Serif',serif;color:#4a0d25;min-height:100vh;
+ background:radial-gradient(500px 420px at 8% 4%,#fff 0%,rgba(255,255,255,0) 62%),radial-gradient(520px 460px at 100% 28%,#ffb3cc 0%,rgba(255,179,204,0) 62%),
+ radial-gradient(500px 420px at 0% 72%,#ffd0df 0%,rgba(255,208,223,0) 66%),radial-gradient(560px 460px at 90% 100%,#ff9bbd 0%,rgba(255,155,189,0) 62%),#ffe3ec;background-attachment:fixed}
+.wrap{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 18px 40px}
+h1{font-size:34px;font-style:italic;font-weight:700;color:#c40f55;text-align:center;line-height:1.05;text-shadow:2px 2px 0 #fff}
+.sub{text-align:center;font-style:italic;font-size:17px;color:#7a2a4a;margin:6px 0 14px}
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.tab{font:italic 700 17px Georgia,'Liberation Serif',serif;border:2px solid #e8265f;color:#c40f55;background:rgba(255,255,255,.7);padding:8px 18px;border-radius:99px;cursor:pointer}
+.tab.on{background:#e8265f;color:#fff}
+.filters{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:8px}
+.chip{font:italic 15px Georgia,'Liberation Serif',serif;border:1.5px solid #ff8fb5;color:#7a2a4a;background:rgba(255,255,255,.6);padding:4px 12px;border-radius:99px;cursor:pointer}
+.chip.on{background:#ffc2d6;border-color:#e8265f;color:#4a0d25;font-weight:700}
+.view{display:none}.view.on{display:block}.view.on.stage{display:flex}
+.stage{flex-direction:column;align-items:center}
+#jar{width:min(78vw,330px);filter:drop-shadow(0 12px 22px rgba(160,30,80,.3))}
+.shake{animation:shake .7s}
+@keyframes shake{0%,100%{transform:rotate(0)}15%{transform:rotate(-7deg)}30%{transform:rotate(6deg)}45%{transform:rotate(-5deg)}60%{transform:rotate(4deg)}80%{transform:rotate(-2deg)}}
+.big{font:italic 700 22px Georgia,'Liberation Serif',serif;background:#e8265f;color:#fff;border:0;border-radius:99px;padding:14px 34px;cursor:pointer;box-shadow:0 4px 0 #b01048;margin-top:10px}
+.big:active{transform:translateY(2px);box-shadow:0 2px 0 #b01048}
+.note{font-style:italic;color:#7a2a4a;text-align:center;margin-top:12px;font-size:16px}
+#modal{position:fixed;inset:0;background:rgba(74,13,37,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:50;backdrop-filter:blur(3px)}
+#modal.show{display:flex}
+.slip{width:100%;max-width:420px;background:#fffdf8;padding:26px 26px 22px;position:relative;transform-origin:50% 100%;animation:unfold .7s cubic-bezier(.2,1.2,.3,1);
+ box-shadow:0 20px 50px rgba(74,13,37,.45);transform:rotate(-1.2deg);
+ background-image:repeating-linear-gradient(transparent 0 33px,rgba(232,38,95,.10) 33px 34px)}
+.slip::before,.slip::after{content:"";position:absolute;left:0;right:0;height:10px;background:radial-gradient(circle at 8px 0,transparent 6px,#fffdf8 6.5px) 0 0/16px 10px repeat-x}
+.slip::before{top:-9px;transform:scaleY(-1)}.slip::after{bottom:-9px}
+@keyframes unfold{from{transform:scale(.4,.05) rotate(6deg);opacity:0}to{transform:rotate(-1.2deg);opacity:1}}
+.slip .cat{font-size:15px;font-style:italic;color:#c40f55;font-weight:700}
+.slip h2{font-size:30px;line-height:1.12;font-style:italic;margin:8px 0 10px;color:#3b0c1f}
+.slip p{font-size:20px;line-height:1.4;font-style:italic;margin-bottom:12px}
+.tags{display:flex;gap:6px;margin-bottom:14px}.tags span{font-size:14px;font-style:italic;border:1.5px dashed #e8265f;color:#c40f55;border-radius:99px;padding:2px 10px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row button{font:italic 700 17px Georgia,'Liberation Serif',serif;border-radius:99px;padding:10px 18px;cursor:pointer;border:2px solid #e8265f}
+.yes{background:#e8265f;color:#fff}.no{background:#fff;color:#c40f55}
+.prog{font-style:italic;text-align:center;font-size:17px;margin-bottom:10px;color:#7a2a4a}
+.bar{height:6px;border-radius:6px;background:rgba(255,255,255,.7);margin:0 auto 14px;max-width:300px;overflow:hidden;border:1px solid #ffb3cc}.bar b{display:block;height:100%;background:linear-gradient(90deg,#ff7aa6,#e8265f);width:0;transition:width .6s}
+.list{list-style:none}.list li{background:rgba(255,255,255,.75);border-radius:14px;padding:10px 14px;margin-bottom:8px;font-style:italic;font-size:18px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.list li.done{border-left:6px solid #e8265f}.list li.todo{opacity:.55}
+.list button{font:italic 14px Georgia,serif;background:none;border:1px solid #e8265f;color:#c40f55;border-radius:99px;padding:3px 10px;cursor:pointer;flex:none}
+.printbtn{display:block;margin:16px auto 0;font:italic 700 16px Georgia,serif;background:#fff;border:2px solid #e8265f;color:#c40f55;border-radius:99px;padding:9px 20px;cursor:pointer}
+#print{display:none}
+@media print{body{background:#fff}.wrap,#modal{display:none!important}#print{display:block}
+ #print h1{font-size:22px;margin-bottom:6px}#print .g{display:grid;grid-template-columns:1fr 1fr;gap:0}
+ #print .s{border:1px dashed #c40f55;padding:9px 11px;break-inside:avoid;min-height:88px}
+ #print .s b{display:block;font-size:13px;color:#c40f55;font-style:italic}#print .s i{display:block;font-size:12px;line-height:1.3;margin-top:3px}
+ #print .s em{font-size:10px;color:#a05070}@page{margin:10mm}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#em{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#em i{position:absolute;font-style:normal;color:#fff;line-height:1;text-shadow:0 0 5px rgba(255,255,255,.9),0 0 3px rgba(232,38,95,.55),0 1px 2px rgba(190,40,100,.35);animation:emf 6s ease-in-out infinite}
+@keyframes emf{0%,100%{opacity:.35;transform:translateY(0) rotate(var(--r))}50%{opacity:.95;transform:translateY(-8px) rotate(var(--r))}}
+.wrap{position:relative;z-index:2}
+@media print{#em{display:none}}
+</style></head><body>
+<div id="em" aria-hidden="true"></div>
+<div class="wrap">
+ <h1>Ann &amp; Denis<br>the date jar</h1>
+ <div class="sub" id="sub"></div>
+ <div class="tabs"><button class="tab on" data-v="jar">The jar</button><button class="tab" data-v="done">Our dates</button></div>
+ <div class="filters" id="f1"></div><div class="filters" id="f2"></div>
+
+ <div class="view on stage" id="v-jar">
+  <svg id="jar" viewBox="0 0 300 340" aria-label="A jar full of folded date slips"></svg>
+  <button class="big" id="pull">Pull a slip</button>
+  <div class="note" id="jarnote"></div>
+ </div>
+
+  <div class="view" id="v-done">
+  <div class="prog"><span id="dn">0</span> of <span id="tot"></span> done</div><div class="bar"><b id="db"></b></div>
+  <ul class="list" id="list"></ul>
+  <button class="printbtn" id="print-btn">Print all the slips</button>
+ </div>
+</div>
+<div id="modal"><div class="slip" id="slip"></div></div>
+<div id="print"></div>
+<script>
+const CATS=["Outdoors", "Food", "Culture", "Cozy at home", "Adventure", "Creative", "Music", "Surprise", "Sweet tooth", "Petals & presents", "Dance", "Slow day"];
+const DATES=[["Sunrise walk in Karura Forest", "Get there early, walk until you're hungry, then eat breakfast wherever you come out.", 0, "cheap", "out"], ["Picnic at the Arboretum", "Each of you brings one snack the other doesn't know about. Eat under the biggest tree you can find.", 0, "cheap", "out"], ["Sunset at Ngong Hills", "Pack a flask of chai and stay until the lights come on in the valley.", 0, "cheap", "out"], ["Wander Uhuru Gardens with no plan", "Walk wherever your feet want to go. First one to find the best bench wins.", 0, "free", "out"], ["Meet the giraffes at the Giraffe Centre", "See who gets licked first. Loser buys the next snack.", 0, "treat", "out"], ["A slow walk with Mailo", "When he's feeling strong again, take him somewhere green and let him set the pace. Stop whenever he does.", 0, "free", "out"], ["The great mandazi hunt", "Find the best mandazi in Nairobi. Score every one out of ten on a proper scorecard.", 1, "cheap", "out"], ["Cook something new together", "Pick a recipe neither of you has tried. No phones, except for reading the recipe.", 1, "cheap", "in"], ["Dessert first", "Skip straight to dessert, then decide if you still want dinner.", 1, "treat", "out"], ["Three-stop street food crawl", "Three stops, one thing at each. The rule is you must share every bite.", 1, "cheap", "out"], ["The scotch egg quest", "Find the best scotch egg in Nairobi. Rate every one, then argue about the winner.", 1, "cheap", "out"], ["Nairobi National Museum", "Learn one thing in each room and quiz each other on the way home.", 2, "cheap", "out"], ["A show at Bomas of Kenya", "Go for the music and dancing. Try not to join in. Fail.", 2, "treat", "out"], ["The Railway Museum", "Pretend you are time travellers who've just arrived. Stay in character the whole time.", 2, "cheap", "out"], ["A night of live theatre or poetry", "Pick whatever is on in town and go in knowing nothing about it.", 2, "treat", "out"], ["The bookshop swap", "Walk into a bookshop and pick one book for each other, without asking what the other likes.", 2, "cheap", "out"], ["Heart check", "Borrow a stethoscope, or use a phone app, and listen to each other's heartbeat. Then take the stairs and listen again.", 2, "free", "in"], ["Teach me something", "Each of you picks a topic the other knows nothing about and teaches it in ten minutes. Questions allowed, grades optional.", 2, "free", "in"], ["Blanket fort movie night", "Build a proper fort. Whoever picks the film isn't allowed to have chosen it before.", 3, "free", "in"], ["Home spa evening", "Face masks, a very serious playlist, and photos you both promise never to post.", 3, "cheap", "in"], ["Bake something badly", "Follow a recipe loosely and rate the disaster out of ten. Eat it anyway.", 3, "cheap", "in"], ["The candlelit restaurant", "One of you is the waiter, with an accent. The other has to complain about the soup.", 3, "free", "in"], ["Read each other something", "Read a page of something you love, or something you wrote and never showed anyone.", 3, "free", "in"], ["Puzzle night", "A proper 500-piece puzzle, edges first. Nobody is allowed to throw the box lid away.", 3, "cheap", "in"], ["Questions with a pass button", "Take turns asking questions from a pile you wrote earlier. Either of you can say pass, no explanation needed.", 3, "free", "in"], ["The five-year board", "Cut out pictures and words for where you each want to be in five years. Stick them up side by side.", 3, "cheap", "in"], ["Take a matatu somewhere new", "Pick a route neither of you has taken. Get off at a stop you like the look of.", 4, "cheap", "out"], ["Take a class in something you're both bad at", "Climbing, pottery, salsa. The point is to be terrible together.", 4, "treat", "out"], ["Day trip to Naivasha or Hell's Gate", "Leave early, come back tired and sunburnt and happy.", 4, "treat", "out"], ["Hire bikes and get lost", "Ride until you don't know where you are. Then work out the way home together.", 4, "cheap", "out"], ["Say yes all afternoon", "For one afternoon you can't turn down anything the other suggests (within reason, Ann).", 4, "free", "out"], ["Paint the same thing", "Same subject, different canvases. Swap at the end and give honest reviews.", 5, "cheap", "in"], ["The us playlist", "Each of you picks 10 songs that feel like the two of you. Reveal them one at a time.", 5, "free", "in"], ["Photo-booth strip, Nairobi edition", "Take four silly photos in four places and stitch them into a strip.", 5, "free", "out"], ["Letters to be opened in a year", "Write to each other. Seal them. Put a date on the envelope and don't cheat.", 5, "free", "in"], ["Draw each other blindfolded", "Don't peek. Frame the best one anyway.", 5, "free", "in"], ["Colouring night", "Two colouring books, one giant pack of pens, one playlist. Swap pages halfway and finish each other's work.", 5, "cheap", "in"], ["Mirror-pic masterclass", "Find the most interesting mirror in the city and take the photo of the two of you. Judge each other's angles with total seriousness.", 5, "free", "out"], ["The tangent game", "One of you starts a story. The other has to connect it to a different one, then back again. Keep going until you land somewhere nobody saw coming.", 5, "free", "in"], ["A live music night", "Pick a venue, then listen to whatever is playing.", 6, "treat", "out"], ["Violin night", "Pull out a violin, or borrow one, and play one song however rusty. The audience is very forgiving.", 6, "free", "in"], ["Karaoke duet", "One song, both of you committed, zero dignity.", 6, "treat", "out"], ["Playlist for a mood", "Make a ten-song playlist for a mood the other picks in secret. Guess the mood from the songs.", 6, "free", "in"], ["Voice-note serenade", "Each of you records a song or a story for the other. Listen to them alone later, with headphones on.", 6, "free", "in"], ["Stargaze", "Get away from the lights with a flask and name your own constellations. One should be a lily.", 7, "cheap", "out"], ["The tiny-budget gift swap", "Buy each other something very small and very thoughtful. Open them on a bench.", 7, "cheap", "out"], ["Half a day each", "Take turns planning. No vetoes allowed.", 7, "free", "out"], ["Recreate your first date", "Do it as well as you remember, then compare who remembers it better.", 7, "cheap", "out"], ["Do absolutely nothing", "On purpose. Together. The best rest you'll have all week.", 7, "free", "in"], ["Window-shop the fancy shoes", "Try on the most outrageous pair in every shop. Buy nothing. Review everything.", 7, "free", "out"], ["Be a little weird in public", "Pick one ridiculous rule for the day, like only speaking in questions. Commit completely.", 7, "free", "out"], ["The Top Deck Mint taste test", "Buy every chocolate you can find. Rank them blind, then see where her favourite lands.", 8, "cheap", "in"], ["Ice cream, round two", "Pick a different flavour each, from a different counter. Trade spoons and score everything.", 8, "cheap", "out"], ["The snack aisle challenge", "Give each other a tiny budget and pick the other's perfect bag of snacks from a supermarket aisle. No peeking, no hints.", 8, "cheap", "out"], ["Biscuit court", "Nice versus digestive. Each side presents evidence. A jury of one decides.", 8, "free", "in"], ["Build a snack platter", "Arrange everything like a very fancy restaurant. Give each dish a ridiculous name and a menu description.", 8, "cheap", "in"], ["Flower market morning", "Go to a florist or flower stall and pick a bunch for each other. Stargazer lilies, if they have them.", 9, "cheap", "out"], ["Flowers for someone else", "Buy a bunch together for someone who would never expect one, and deliver it with no explanation.", 9, "cheap", "out"], ["The small kindnesses run", "Fill a bag with sweets and fruit and hand them out to the people who keep your day running.", 9, "cheap", "out"], ["The wrapping contest", "Wrap each other's gifts as extravagantly as possible. Most over the top wins.", 9, "cheap", "in"], ["Press a flower", "Pick one flower, press it in a book, and write the date beside it. Find it again in a year.", 9, "free", "in"], ["Dance in the kitchen", "Play every song from the year you met and dance to all of them.", 10, "free", "in"], ["Learn a dance from a video", "Learn it badly, then perform it for Mailo.", 10, "free", "in"], ["A beginner's dance class", "Book one class and be wonderfully terrible together.", 10, "treat", "out"], ["One slow song", "Phones away. One song, the living room floor, slow.", 10, "free", "in"], ["Choreograph thirty seconds", "Pick a song and make up a thirty-second routine. Perform it once, filmed, never to be shared.", 10, "free", "in"], ["Nap date", "Curtains drawn, blankets on, no alarms. Whoever wakes up first has to bring snacks.", 11, "free", "in"], ["Same room, separate worlds", "One of you colours or reads, the other does their own thing, a quiet playlist in the background. Talk whenever you feel like it.", 11, "free", "in"], ["Slow Sunday", "Late breakfast, no plans, no phones until noon.", 11, "free", "in"], ["A rainy-day rule", "If it rains, you stay in. Tea, blankets, and a long chat or none at all.", 11, "free", "in"], ["The long hug", "Hold each other for a full minute before saying a word. The talking can come after, or not at all.", 11, "free", "in"]]; // [title, desc, cat, cost, where]
+const COSTS={free:'Free',cheap:'Cheap',treat:'A treat'};
+const done=new Set();try{JSON.parse(localStorage.getItem('annDates')||'[]').forEach(t=>{const i=DATES.findIndex(d=>d[0]===t);if(i>=0)done.add(i)})}catch(e){}
+function save(){try{localStorage.setItem('annDates',JSON.stringify([...done].map(i=>DATES[i][0])))}catch(e){}}
+let fc='all',fw='all';
+const $=s=>document.querySelector(s);
+function chips(id,opts,get,set){const box=$(id);box.innerHTML='';opts.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(get()===v?' on':'');b.textContent=l;b.onclick=()=>{set(v);draw()};box.appendChild(b)})}
+function draw(){chips('#f1',[['all','Any budget'],['free','Free'],['cheap','Cheap'],['treat','A treat']],()=>fc,v=>fc=v);
+ chips('#f2',[['all','Anywhere'],['out','Out and about'],['in','Stay in']],()=>fw,v=>fw=v);jarNote()}
+const ok=i=>{const d=DATES[i];return (fc==='all'||d[3]===fc)&&(fw==='all'||d[4]===fw)}
+const seen=[];try{JSON.parse(localStorage.getItem('annJarSeen')||'[]').forEach(t=>{const i=DATES.findIndex(d=>d[0]===t);if(i>=0)seen.push(i)})}catch(e){}
+function saveSeen(){try{localStorage.setItem('annJarSeen',JSON.stringify(seen.map(i=>DATES[i][0])))}catch(e){}}
+const poolAll=()=>DATES.map((_,i)=>i).filter(i=>ok(i)&&!done.has(i));
+const fresh=()=>poolAll().filter(i=>!seen.includes(i));
+function jarNote(){const p=poolAll().length,f=fresh().length;$('#jarnote').textContent=!p?'This jar is empty for these filters. Try loosening them.':f+' slip'+(f===1?'':'s')+' left in this round'}
+/* tabs */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+t.dataset.v));$('#f1').style.display=$('#f2').style.display=t.dataset.v==='done'?'none':'flex';if(t.dataset.v==='done')renderList()});
+/* jar art */
+const NS='http://www.w3.org/2000/svg';const jar=$('#jar');
+function E(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||jar).appendChild(e);return e}
+let sd=11;const r=()=>(sd=(sd*16807)%2147483647,(sd-1)/2147483646);
+const defs=E('defs',{});
+const gl=E('linearGradient',{id:'gl',x1:0,y1:0,x2:1,y2:0},defs);[['0','rgba(255,255,255,.75)'],['.18','rgba(255,255,255,.15)'],['.8','rgba(255,255,255,.1)'],['1','rgba(255,255,255,.6)']].forEach(s=>E('stop',{offset:s[0],'stop-color':s[1]},gl));
+const JAR='M70 95 L70 85 Q70 78 78 78 L222 78 Q230 78 230 85 L230 95 Q252 112 252 140 L252 292 Q252 326 218 326 L82 326 Q48 326 48 292 L48 140 Q48 112 70 95Z';
+const cp=E('clipPath',{id:'jc'},defs);E('path',{d:JAR},cp);
+E('path',{d:JAR,fill:'rgba(255,255,255,.35)'});
+const inner=E('g',{'clip-path':'url(#jc)'});
+const PAL=['#ffc2d6','#fff','#ffe0c2','#f6c9ee','#ffd9e3','#ffb0cb','#fff3c9'];
+for(let i=0;i<30;i++){const x=70+r()*160,y=135+r()*185,rot=(r()-.5)*110;
+ const g=E('g',{transform:`translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(${rot.toFixed(0)})`},inner);
+ E('rect',{x:-21,y:-12,width:42,height:24,rx:2,fill:PAL[i%PAL.length],stroke:'rgba(200,40,100,.35)','stroke-width':1},g);
+ E('path',{d:'M-14 -4 H14 M-14 2 H8',stroke:'rgba(200,40,100,.35)','stroke-width':1.2},g)}
+E('path',{d:JAR,fill:'url(#gl)',stroke:'#fff','stroke-width':3});
+E('path',{d:'M66 150 Q62 220 66 285',stroke:'rgba(255,255,255,.8)','stroke-width':6,fill:'none','stroke-linecap':'round'});
+E('rect',{x:60,y:44,width:180,height:38,rx:10,fill:'#e8265f',stroke:'#fff','stroke-width':3});
+E('path',{d:'M70 62 H230',stroke:'rgba(255,255,255,.35)','stroke-width':3});
+const bow=E('g',{transform:'translate(150 44)'});E('path',{d:'M0 0 C-30 -30 -42 -6 -10 6Z M0 0 C30 -30 42 -6 10 6Z',fill:'#ff7aa6',stroke:'#fff','stroke-width':2},bow);E('circle',{r:6,cy:2,fill:'#c40f55',stroke:'#fff','stroke-width':2},bow);
+const tag=E('g',{transform:'translate(150 222) rotate(-4)'});E('rect',{x:-62,y:-26,width:124,height:52,rx:8,fill:'#fffdf8',stroke:'#e8265f','stroke-width':2.5},tag);
+const t1=E('text',{x:0,y:-3,'text-anchor':'middle','font-size':20,'font-style':'italic','font-weight':700,fill:'#c40f55','font-family':'Georgia,serif'},tag);t1.textContent='Date jar';
+const t2=E('text',{x:0,y:17,'text-anchor':'middle','font-size':13,'font-style':'italic',fill:'#7a2a4a','font-family':'Georgia,serif'},tag);t2.textContent='open when bored';
+/* slips */
+function slipHTML(i){const d=DATES[i];return `<div class="cat">${CATS[d[2]]}</div><h2>${d[0]}</h2><p>${d[1]}</p>
+ <div class="tags"><span>${COSTS[d[3]]}</span><span>${d[4]==='in'?'Stay in':'Out and about'}</span></div>`}
+let cur=null;
+function showSlip(i,msg){cur=i;const dn=done.has(i);$('#slip').innerHTML=slipHTML(i)+(msg?`<p style="font-size:16px;color:#7a2a4a">${msg}</p>`:'')+
+ `<div class="row"><button class="yes" id="y">${dn?'Done already':'We did it'}</button><button class="no" id="a">Another</button><button class="no" id="c">Close</button></div>`;
+ $('#modal').classList.add('show');
+ $('#y').onclick=()=>{done.add(i);save();$('#modal').classList.remove('show');jarNote();renderList()};
+ $('#a').onclick=()=>{$('#modal').classList.remove('show');pull()};
+ $('#c').onclick=()=>$('#modal').classList.remove('show')}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')});
+function pick(pool){return pool[Math.floor(Math.random()*pool.length)]}
+function pull(){const p=poolAll();if(!p.length){jarNote();return}
+ let f=fresh(),msg='';
+ if(!f.length){const keep=Math.min(10,Math.floor(p.length/3));const recent=seen.slice(-keep);seen.length=0;recent.forEach(i=>seen.push(i));
+  f=fresh();if(!f.length){seen.length=0;f=p}msg='You have drawn every slip. The jar has been refilled.'}
+ const i=pick(f);seen.push(i);saveSeen();
+ jar.classList.remove('shake');void jar.getBoundingClientRect();jar.classList.add('shake');
+ setTimeout(()=>{showSlip(i,msg);jarNote()},750)}
+$('#pull').onclick=pull;
+/* list */
+function renderList(){$('#dn').textContent=done.size;$('#db').style.width=done.size/DATES.length*100+'%';const ul=$('#list');ul.innerHTML='';
+ DATES.map((_,i)=>i).sort((a,b)=>(done.has(b)-done.has(a))||a-b).forEach(i=>{const li=document.createElement('li');li.className=done.has(i)?'done':'todo';
+  li.innerHTML=`<span>${done.has(i)?'&#10003; ':''}${DATES[i][0]}</span>`;
+  if(done.has(i)){const b=document.createElement('button');b.textContent='undo';b.onclick=()=>{done.delete(i);save();renderList();jarNote()};li.appendChild(b)}
+  ul.appendChild(li)})}
+/* print */
+$('#print').innerHTML='<h1>Ann &amp; Denis: the date jar</h1><div class="g">'+DATES.map(d=>`<div class="s"><em>${CATS[d[2]]} · ${COSTS[d[3]]}</em><b>${d[0]}</b><i>${d[1]}</i></div>`).join('')+'</div>';
+$('#print-btn').onclick=()=>window.print();
+/* white sparkles */
+(function(){const G=['\u{1F90D}','\u2726','\u2661','\u2740','\u273F','\u2606','\u2765','\u{1F90D}','\u2727','\u2022'];const box=document.getElementById('em');
+ const cols=6,rows=10;let k=0;for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const e=document.createElement('i');e.textContent=G[(k++*7+r)%G.length];
+  const sz=11+Math.random()*10;e.style.cssText=`left:${((c+.15+Math.random()*.7)/cols*100).toFixed(1)}%;top:${((r+.15+Math.random()*.7)/rows*100).toFixed(1)}%;font-size:${sz.toFixed(0)}px;--r:${(Math.random()*50-25).toFixed(0)}deg;animation-delay:${(-Math.random()*6).toFixed(1)}s;animation-duration:${(5+Math.random()*4).toFixed(1)}s`;
+  box.appendChild(e)}})();
+$('#sub').textContent=DATES.length+' dates. No excuses. Let fate pick.';$('#tot').textContent=DATES.length;draw();renderList();
+</script></body></html>
